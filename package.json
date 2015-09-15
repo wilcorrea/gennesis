@@ -1,0 +1,35 @@
+{
+  "name": "gennesis",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "gennesis": "electron .",
+    "file": "electron ./plugins/file/index.js",
+    "sql": "electron ./plugins/sql/index.js",
+    "build-linux": "electron-packager . Gennesis --platform=linux --arch=all --version=0.28.2",
+    "build-windows": "electron-packager . Gennesis --platform=linux --arch=all --version=0.28.2",
+    "build-mac": "electron-packager . Gennesis --platform=linux --arch=all --version=0.28.2",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "dracones.io",
+  "license": "MIT",
+  "dependencies": {
+    "app-module-path": "^1.0.3",
+    "debug": "^2.2.0",
+    "ejs": "^2.3.3",
+    "electron-prebuilt": "^0.30.4",
+    "express": "^4.13.3",
+    "fastclick": "^1.0.6",
+    "js-beautify": "^1.5.10",
+    "mkdirp": "^0.5.1",
+    "mysql": "^2.8.0",
+    "node-mysql": "^0.4.2",
+    "node-persist": "0.0.6"
+  },
+  "devDependencies": {
+    "electron-packager": "^5.0.2",
+    "electron-prebuilt": "^0.30.6"
+  }
+}
