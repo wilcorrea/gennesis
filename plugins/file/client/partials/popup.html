@@ -1,0 +1,30 @@
+<md-dialog aria-label="{{dialog.title}}">
+  <form>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>{{dialog.title}}</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content style="max-width: 1024px;max-height: 768px;min-width: 440px;min-height: 80px;">
+    <md-input-container>
+      <label>{{dialog.content}}</label><input ng-model="_input">
+    </md-input-container>
+  </md-dialog-content>
+  <div class="md-actions" layout="row" style="padding-right:20px;">
+    <!--<md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" md-autofocus>-->
+      <!--More on Wikipedia-->
+    <!--</md-button>-->
+    <!--<span flex></span>-->
+    <md-button ng-click="answer('cancel', _input)" >
+     {{dialog.cancel}}
+    </md-button>
+    <md-button ng-click="answer('confirm', _input)">
+      {{dialog.confirm}}
+    </md-button>
+  </div>
+  </form>
+</md-dialog>

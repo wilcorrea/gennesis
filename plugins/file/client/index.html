@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html ng-app="MyApp" ng-controller="AppCtrl">
+  <head>
+
+    <!-- Material Design Lite -->
+    <link rel="stylesheet" type="text/css" ng-href="/libs/material-design-lite/{{theme}}/material.min.css">
+    <link rel="stylesheet" type="text/css" ng-href="/libs/material-design-lite/{{theme}}/material-icons.css">
+    <script type="text/javascript" src="/libs/material-design-lite/material.min.js"></script>
+
+    <meta charset="utf-8">
+    <title>{{title}}</title>
+
+    <link rel="stylesheet" type="text/css" href="/libs/angular-material/angular-material.css">
+    <link rel="stylesheet" type="text/css" href="/jstree/themes/default/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <link rel="stylesheet" type="text/css" href="/css/drawer.css">
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/preview.css">
+    <link rel="stylesheet" type="text/css" href="/css/search.css">
+  </head>
+
+  <body ng-controller="MenuCtrl">
+
+    <div ng-class="drawer.fixed ? 'mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header' : 'mdl-layout  mdl-js-layout mdl-layout--fixed-header'">
+
+      <header class="mdl-layout__header">
+
+        <div class="mdl-layout__header-row">
+
+          <div class="mdl-resizer" ng-drawer-resize draggable="false"></div>
+
+          <span class="mdl-layout-title"><!--<img src="images/gennesis.io.png"/>-->{{title}}</span>
+
+          <div id="md-progress-circular">
+            <md-progress-circular md-mode="indeterminate" md-diameter="20px"></md-progress-circular>
+          </div>
+
+          <div class="mdl-layout-spacer"></div>
+
+          <nav class="mdl-navigation">
+
+            <!--<md-input-container>-->
+            <!--  <md-select ng-model="theme" ng-change="settings('theme', theme)" aria-label="Theme">-->
+            <!--    <md-option ng-repeat="_theme in __themes" value="{{_theme}}">{{_theme}}</md-option>-->
+            <!--  </md-select>-->
+            <!--</md-input-container>-->
+
+            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
+              <input type="checkbox" id="switch-1" class="mdl-switch__input" ng-model="drawer.fixed"/>
+              <span class="mdl-switch__label">Drawer</span>
+            </label>
+
+            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="preview-switch">
+              <input type="checkbox" id="preview-switch" class="mdl-switch__input" ng-model="preview"/>
+              <span class="mdl-switch__label">Preview</span>
+            </label>
+
+            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="search-switch">
+              <input type="checkbox" id="search-switch" class="mdl-switch__input" ng-model="search"/>
+              <span class="mdl-switch__label">Search</span>
+            </label>
+
+            <input id="__selectedIndex" type="number" class="tab-selectedindex" ng-model="__selectedIndex"/>
+            <input id="drawer-width" type="number" class="drawer-width" ng-model="drawer.width"/>
+
+          </nav>
+
+          <!--<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">-->
+          <!--  <label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">-->
+          <!--    <i class="material-icons">search</i>-->
+          <!--  </label>-->
+          <!--  <div class="mdl-textfield__expandable-holder">-->
+          <!--    <input class="mdl-textfield__input" type="text" name="sample" id="fixed-header-drawer-exp" />-->
+          <!--  </div>-->
+          <!--</div>-->
+
+          <button id="demo-menu-lower-right"
+                  class="mdl-button mdl-js-button mdl-button--icon">
+            <i class="material-icons">more_vert</i>
+          </button>
+
+          <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
+            <li class="mdl-menu__item">Item 1</li>
+            <li class="mdl-menu__item">Item 2</li>
+          </ul>
+
+        </div>
+      </header>
+
+      <div class="mdl-layout__drawer">
+        <!--<span class="mdl-layout-title">{{drawer}}</span>-->
+        <nav class="mdl-navigation tree-container" ng-controller="TreeCtrl">
+          <div ng-repeat="_project in __projects">
+            <js-tree tree-events="select_node:nodeSelected" tree-ajax="{{_project.host}}/api/tree/{{_project.id}}" file-host="{{_project.host}}" file-project="{{_project.host}}#{{_project.id}}" tree-core="tree_core" tree-plugins=""></js-tree>
+          </div>
+        </nav>
+      </div>
+
+      <main class="mdl-layout__content">
+
+        <div class="page-content">
+
+          <div layout="column">
+            <md-content>
+              <md-tabs md-selected="__selectedIndex"  md-dynamic-height="true" md-border-bottom="" md-autoselect="">
+                <md-tab ng-repeat="_tab in tabs" ng-disabled="_tab.disabled">
+                  <md-tab-label>
+                    <div ng-drag-tab ng-drop-tab>
+                      <label title="{{_tab.project}}:{{_tab.id}}" class="md-label" file-id="{{_tab.id}}">{{_tab.title}}</label>
+                    </div>
+                    <md-tab-close ng-class="_tab.edited ? 'md-tab-edited' : ''" ng-click="removeTab(_tab)">x</md-tab-close>
+                  </md-tab-label>
+                  <md-tab-body>
+                    <section ng-controller="AceCtrl">
+                      <div class="md-editor" file-id="{{_tab.id}}" ui-ace-options="{ line:{{_tab._line}} }" ui-ace="{mode: _tab.mode, onLoad: aceLoaded, theme: 'netbeans', require: ['ace/ext/language_tools'], advanced: {enableSnippets: true, enableBasicAutocompletion: true, enableLiveAutocompletion: true}}" ng-model="_tab.file"></div>
+                    </section>
+                  </md-tab-body>
+                </md-tab>
+              </md-tabs>
+            </md-content>
+
+          </div>
+
+        </div>
+
+        <div class="md-preview" ng-show="preview" aria-hidden="false">
+          <input ng-model="url" ng-enter-preview/>
+          <md-progress-linear id="preview-loading" md-mode="indeterminate"></md-progress-linear>
+          <webview id="preview" class="preview-webview" src="{{webview}}"></webview>
+        </div>
+
+        <div class="md-search" ng-show="search" aria-hidden="false">
+
+          <div layout layout-sm="column">
+
+            <md-input-container flex>
+              <label>Project</label>
+              <md-select ng-model="sProject" ng-change="searchChange(sProject)">
+                <md-option ng-repeat="__project in __projects" value="{{__project.host}}#{{__project.id}}">{{__project.name}}</md-option>
+              </md-select>
+            </md-input-container>
+
+          </div>
+
+          <div layout layout-sm="column">
+
+            <md-input-container flex>
+              <label>Host</label>
+              <input ng-model="sHost" disabled/>
+            </md-input-container>
+
+            <md-input-container flex>
+              <label>Folder</label>
+              <input ng-model="sFolder" disabled/>
+            </md-input-container>
+
+          </div>
+
+          <div layout layout-sm="column">
+
+            <md-input-container flex>
+              <label>Path</label>
+              <input ng-model="sPath"/>
+            </md-input-container>
+
+            <md-input-container flex>
+              <label>Query</label>
+              <input ng-model="sQuery" ng-enter="seachQuery()"/>
+            </md-input-container>
+
+          </div>
+
+          <md-button class="md-raised md-primary" ng-click="seachQuery()">Search</md-button>
+
+          <div id="search-panel">
+            <md-list>
+              <md-list-item class="md-3-line" ng-repeat="_sResult in sResults">
+                <div class="md-list-item-text" layout="column">
+                  <h3>{{_sResult.file.replace(sFolder, '').substring(1)}}</h3>
+                  <p ng-repeat="_result in _sResult.results">
+                    {{_result.line_number}} &#187; <span class="md-search-result" ng-click="searchOpen(sProject, _sResult.file, path.basename(_sResult.file), _sResult.ft, _result.line_number)">{{_result.line}}</span>
+                  </p>
+                </div>
+              </md-list-item>
+            </md-list>
+          </div>
+        </div>
+
+      </main>
+    </div>
+
+    <script type="text/javascript" src="/libs/angularjs/angular.js"></script>
+    <script type="text/javascript" src="/libs/angularjs/angular-animate.min.js"></script>
+    <script type="text/javascript" src="/libs/angularjs/angular-route.min.js"></script>
+    <script type="text/javascript" src="/libs/angularjs/angular-aria.min.js"></script>
+    <script type="text/javascript" src="/libs/angularjs/angular-messages.min.js"></script>
+    
+    <script type="text/javascript" src="/libs/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="/jstree/jstree.min.js"></script>
+    <script type="text/javascript">
+      $.jstree.defaults.dnd.is_draggable = false;
+      $.jstree.defaults.search.ajax = true;
+      $.jstree.defaults.search.show_only_matches = true;
+      //$.jstree.defaults.sort = function(a, b) {};
+    </script>
+    <script type="text/javascript" src="/libs/jstree-directive/jsTree.directive.js"></script>
+
+    <script type="text/javascript" src="/libs/angular-material/angular-material.js"></script>
+    <!--<script src="//s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/assets-cache.js"></script>-->
+
+    <script type="text/javascript" src="/js/assets.js"></script>
+    <script type="text/javascript" src="/js/app.js"></script>
+    <script type="text/javascript" src="/js/factory.js"></script>
+    <script type="text/javascript" src="/js/controllers.js"></script>
+    <script type="text/javascript" src="/js/services.js"></script>
+
+    <script type="text/javascript" src="/js/menu.js"></script>
+    <script type="text/javascript" src="/js/menu-context.js"></script>
+
+    <script type="text/javascript" src="/libs/ace/src-noconflict/ace.js"></script>
+    <script type="text/javascript" src="/libs/ace/src-noconflict/ext-language_tools.js"></script>
+    <script type="text/javascript" src="/libs/angular-ace/ui-ace.js"></script>
+
+    <script type="text/javascript" src="/libs/downloadify/javascript-download.js"></script>
+
+    <style type="text/css">
+      .mdl-layout__drawer {
+        width: {{drawer.width}}px;
+        left: -{{(drawer.width / 2)}}px;
+      }
+      .mdl-layout--fixed-drawer .ace_gutter-tooltip {
+        margin-left: -{{drawer.width}}px;
+      }
+      .mdl-layout--fixed-drawer:not(.is-small-screen) > .mdl-layout__header {
+        margin-left: {{drawer.width}}px;
+        width: calc(100% - {{drawer.width}}px);
+      }
+      @media screen and (min-width: 1024px) {
+        .mdl-layout--fixed-drawer > .mdl-layout__content {
+          margin-left: {{drawer.width}}px;
+        }
+      }
+      .mdl-layout--fixed-drawer .md-preview {
+        width: calc(100% - {{(drawer.width)}}px);
+      }
+      @media screen and (max-width: 1024px) {
+        .mdl-layout--fixed-drawer .md-preview {
+          width: 100%;
+        }
+      }
+      .mdl-layout--fixed-drawer .md-search {
+        width: calc(100% - {{(drawer.width)}}px);
+      }
+      @media screen and (max-width: 1024px) {
+        .mdl-layout--fixed-drawer .md-search {
+          width: 100%;
+        }
+      }
+    </style>
+  </body>
+</html>

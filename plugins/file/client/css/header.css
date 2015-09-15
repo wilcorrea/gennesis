@@ -1,0 +1,72 @@
+/**
+ * 
+ * 
+ */
+md-progress-circular .md-inner .md-left .md-half-circle {
+  border-left-color: #fff;
+}
+md-progress-circular .md-inner .md-right .md-half-circle {
+  border-right-color: #fff;
+}
+md-progress-circular .md-inner .md-gap {
+  border-top-color: #fff;
+  border-bottom-color: #fff;
+}
+md-progress-circular .md-inner .md-left .md-half-circle, md-progress-circular .md-inner .md-right .md-half-circle {
+  border-top-color: #fff;
+}
+
+md-input-container {
+  margin: 22px 60px 0 0;
+}
+
+input:focus {
+  outline: none;
+  min-width: 50px;
+}
+
+.mdl-switch__thumb {
+  background: #E33C3E;
+}
+.mdl-switch.is-checked .mdl-switch__thumb {
+  background: #129E5A;
+}
+.mdl-switch.is-checked .mdl-switch__track {
+  background: #2F3C86;
+}
+
+.drawer-width:focus, .tab-selectedindex:focus {
+  border: 1px solid #AFB6E0;
+  border-radius: 2px;
+}
+.drawer-width, .tab-selectedindex {
+  border: 1px solid transparent;
+  opacity: 0.6;
+  color: rgb(255, 255, 255);
+  background: transparent;
+  padding: 2px 2px 2px 5px;
+  width: 50px !important;
+  cursor: default;
+}
+
+.mdl-layout__header-row, .mdl-resizer {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.mdl-resizer {
+  width: 5px;
+  background-color: #f0f0f0;
+  height: 40px;
+  cursor: ew-resize;
+  margin: 0 20px 0 -15px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+}
+
+.mdl-layout__header-row .mdl-switch {
+  width: 160px;
+}

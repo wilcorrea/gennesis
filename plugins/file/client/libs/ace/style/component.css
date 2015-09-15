@@ -1,0 +1,173 @@
+/**
+ *
+ * ace-netbeans
+ */
+.ace-firepad, .firepad {
+  height: 100%;
+  width: 100%;
+}
+
+.ace-fullscreen .maximize, .codeMirror-maximize .fullscreen{
+  display: none;
+}
+
+.ace-fullscreen{
+  background: #fff;
+  position: fixed;
+  z-index: 20000;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.ace-maximize{
+  box-shadow: 2px 2px 8px 2px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  position: fixed;
+  z-index: 2000;
+  left: 48px;
+}
+
+.ace-netbeans .ace_gutter {
+  background: #ebebeb;
+  border-right: 1px solid rgb(159, 159, 159);
+  color: rgb(136, 136, 136);
+}
+
+.ace-netbeans .ace_print-margin {
+  width: 1px;
+  background: #ebebeb;
+}
+
+.ace-netbeans {
+  background-color: #FFFFFF;
+}
+
+.ace-netbeans .ace_fold {
+  background-color: rgb(60, 76, 114);
+}
+
+.ace-netbeans .ace_cursor {
+  color: black;
+}
+
+.ace-netbeans .ace_storage {
+  /*background: rgb(181, 213, 255);*/
+}
+
+.ace-netbeans .ace_keyword, .ace-netbeans .ace_constant.ace_language {
+  color: rgb(0, 0, 255);
+  font-weight: bold;
+}
+
+.ace-netbeans .ace_identifier {
+ color: rgb(0, 0, 0);
+}
+
+.ace-netbeans .ace_keyword.ace_operator {
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+}
+
+.ace-netbeans .ace_variable {
+  color: rgb(109, 50, 6);
+}
+
+.ace-netbeans .ace_constant.ace_buildin {
+  color: rgb(0, 0, 0);
+}
+
+.ace-netbeans .ace_function {
+  color: rgb(150, 10, 10);
+  font-weight: bold;
+}
+
+.ace-netbeans .ace_string {
+  color: rgb(206,123,0);
+}
+
+.ace-netbeans .ace_comment {
+  color: rgb(150, 150, 150);
+}
+
+.ace-netbeans .ace_comment.ace_doc {
+  color: rgb(150, 150, 150);
+}
+
+.ace-netbeans .ace_comment.ace_doc.ace_tag {
+  color: rgb(150, 150, 150);
+  font-weight: bold;
+}
+
+.ace-netbeans .ace_constant.ace_numeric {
+  color: rgb(255,0,255);
+}
+
+.ace-netbeans .ace_type {
+  color: rgb(0, 0, 0);
+}
+
+.ace-netbeans .ace_xml-pe {
+  color: rgb(104, 104, 91);
+}
+
+.ace-netbeans .ace_marker-layer .ace_selection {
+  background: rgb(181, 213, 255);
+}
+
+.ace-netbeans .ace_bracket.ace_start {
+  font-weight: bold;
+}
+
+.ace-netbeans .ace_marker-layer .ace_bracket {
+  margin: -1px 0 0 -1px;
+  border: 1px solid rgb(192, 192, 192);
+  background: yellow;
+}
+
+.ace-netbeans .ace_meta.ace_tag {
+  color:rgb(0, 0, 230);
+}
+
+.ace-netbeans .ace_tag {
+  /*color: rgb(0, 0, 0);*/
+}
+
+.ace-netbeans .ace_invisible {
+  color: #ddd;
+}
+
+.ace-netbeans .ace_entity.ace_other.ace_attribute-name {
+  color: rgb(0,153,0);
+}
+
+.ace-netbeans .ace_constant.ace_language.ace_escape {
+  color: rgb(30,30,30);
+  font-weight: bold;
+}
+
+.ace-netbeans .ace_marker-layer .ace_step {
+  background: rgb(255, 255, 0);
+}
+
+.ace-netbeans .ace_marker-layer .ace_active-line {
+  background: rgb(232, 242, 254);
+}
+
+.ace-netbeans .ace_marker-layer .ace_selected-word {
+  border: 1px solid rgb(181, 213, 255);
+}
+
+.ace-netbeans .ace_php_tag {
+  font-weight: bold;
+}
+
+.ace-netbeans .ace_storage {
+  color: rgb(0, 0, 255);
+  font-weight: bold;
+}
+
+.ace-netbeans .ace_indent-guide {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==") right repeat-y;
+}

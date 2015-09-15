@@ -1,0 +1,138 @@
+
+/* app.css */
+
+md-tabs:not(.md-no-tab-content):not(.md-dynamic-height){
+  height : 680px;
+}
+md-tabs .md-tab {
+  border-right: 1px solid #f0f0f0;
+}
+
+.ace_editor {
+  height : 625px;
+}
+
+.ace_autocomplete {
+  width: 380px;
+}
+
+.ace_content {
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0 4px 1px inset;
+}
+
+.md-editor {
+  position: absolute;
+}
+
+.ace_gutter-tooltip {
+  margin-top: -110px;
+}
+
+.md-tab {
+  line-height: 35px;
+}
+
+.md-tab-content {
+  background-color: #F6F6F6;
+}
+
+md-tab-close:hover {
+  color: #fff;
+  border: 1px solid #DE3641;
+  border-radius: 10px;
+  background-color: #EA948A;
+  opacity: 1;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+}
+
+.md-tab-edited {
+  background-color: #fff;
+  /*box-shadow: inset 1px 0px 1px rgba(0,0,0,0.4);*/
+  color: #B13138;
+  font-weight: bold;
+  border: 1px solid #A01428;
+}
+
+md-tab-close {
+  position: absolute;
+  top: 5px;
+  right: 0;
+  line-height: 11px;
+  height: 12px;
+  width: 12px;
+  overflow: hidden;
+  padding: 1px;
+  color: #515151;
+  cursor: pointer;
+  font-size: 12px;
+  outline: none;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  /*background-color: #ddd;*/
+  opacity: 0.6;
+  text-align: center;
+  padding: 2px;
+}
+
+.mdl-layout__drawer .mdl-navigation {
+  margin-top: 10px;
+  padding-top: 0;
+}
+
+.md-label {
+  cursor: pointer;
+}
+
+.mdl-tabs__tab-bar {
+  -webkit-align-content: space-between;
+  -webkit-box-pack: left;
+  -webkit-justify-content: left;
+  -ms-flex-pack: left;
+  justify-content: left;
+  -ms-flex-line-pack: justify;
+  padding: 0 0 0 20px;
+}
+
+.mdl-layout__content {
+  background: #f6f6f6;
+}
+
+
+
+.md-tab, .md-button, .md-toast .md-action {
+  text-transform: none !important;
+}
+
+md-tabs md-ink-bar {
+  color: #F44336  !important;
+  background: #F44336 !important;
+}
+
+ul.vakata-context {
+  display: none;
+}
+
+md-tab-item {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Required to make elements draggable in old WebKit */
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
+}
+
+.jstree-default > .jstree-container-ul > .jstree-node {
+  /*border-bottom: 1px dotted #999;*/
+  margin-bottom: 5px;
+}
+
+.jstree-container-ul > .jstree-node > .jstree-icon.jstree-ocl {
+  background-position: 4px -4px;
+  margin-left: -10px
+}
+
+md-pagination-wrapper {
+  overflow: hidden;
+}
+
