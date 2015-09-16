@@ -1,0 +1,134 @@
+result {
+  font-size: 10px;
+  line-height: 10px;
+  width: 0;
+  position: absolute;
+  z-index: 100000;
+  top: 0;
+  background: #fff;
+  border-left: 1px solid #ddd;
+  padding: 0;
+  overflow: auto;
+  transition: width .3s;
+  right: -20px; 
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: row;
+}
+
+.diffing result {
+  width: 60%;
+  transition: width .3s;
+  right: 0;
+}
+
+.diffing .md-editor.ace_editor {
+  width: 40%;
+  transition: width .3s;
+  border-right: 1px solid #ddd;
+}
+.md-editor.ace_editor {
+  transition: width .3s;
+}
+
+result pre, gutter-item {
+  font-family: Monaco, Menlo, 'Ubuntu Mono', Consolas, source-code-pro, monospace;
+  font-size: 12px;
+  font-style: normal;
+  font-variant: normal;
+  line-height: normal;
+  white-space: pre;
+  margin: 0;
+  color: #cfcfcf;     
+}
+
+del {
+  color: #b30000;
+  text-decoration: none !important;
+}
+/*del gutter {
+  background: #fadad7;
+  color: #b30000;
+}*/
+
+ins {
+  color: #406619;
+  text-decoration: none;
+}
+/*ins gutter {
+  background: #eaf2c2;
+  color: #406619;
+}*/
+
+gutter-item.removed {
+  background: #fadad7;
+  color: #b30000;
+}
+
+gutter-item.added {
+  background: #eaf2c2;
+  color: #406619;
+}
+
+gutter-item, equal div, del div, ins div {
+	height: 12px
+}
+
+pre div::selection {
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+}
+pre div::-moz-selection {
+  background: rgba(0,0,0,0.3);
+  color: #fff;
+}
+
+/*gutter {*/
+/*	border-right: 1px solid #ddd;*/
+/*	display: inline-block;*/
+/*	width: 30px;*/
+/*	padding: 0 10px;*/
+/*	text-align: right;*/
+/*	color: #636363;*/
+/*	-webkit-touch-callout: none;*/
+/*  -webkit-user-select: none;*/
+/*  -khtml-user-select: none;*/
+/*  -moz-user-select: none;*/
+/*  -ms-user-select: none;*/
+/*  user-select: none;*/
+/*}*/
+
+gutter {
+	display: inline-block;
+	min-width: 50px;
+	padding: 0;
+	text-align: right;
+}
+gutter-item {
+	padding: 0 10px 0 0;
+   border-right: 1px solid #ddd;
+  text-align: right;
+	color: #636363;
+	-webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: block;
+}
+
+
+.ace-diff-line {
+	position: absolute;
+	z-index: 1;
+}
+
+.ace-diff-line.removed {
+	background: #FADAD7;
+}
+
+.ace-diff-line.added {
+	background: #D3F3C0;
+}
+

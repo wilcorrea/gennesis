@@ -4,7 +4,9 @@
  * Binds a ACE Editor widget
  */
 angular.module('ui.ace', [])
+
   .constant('uiAceConfig', {})
+
   .directive('uiAce', ['uiAceConfig', function (uiAceConfig) {
 
     if (angular.isUndefined(window.ace)) {
@@ -125,8 +127,11 @@ angular.module('ui.ace', [])
     };
 
     return {
+
       restrict: 'EA',
+
       require: '?ngModel',
+
       link: function (scope, elm, attrs, ngModel) {
 
         /**
@@ -259,6 +264,7 @@ angular.module('ui.ace', [])
 
         // Value Blind
         if (ngModel) {
+
           ngModel.$formatters.push(function (value) {
             if (angular.isUndefined(value) || value === null) {
               return '';

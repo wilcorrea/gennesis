@@ -17,6 +17,10 @@
     <link rel="stylesheet" type="text/css" href="/css/header.css">
     <link rel="stylesheet" type="text/css" href="/css/preview.css">
     <link rel="stylesheet" type="text/css" href="/css/search.css">
+
+    <link rel="stylesheet" type="text/css" href="/libs/jsdiff/jsdiff.css">
+    <!--<link rel="stylesheet" type="text/css" href="/libs/ace-diff/ace-diff.css">-->
+
   </head>
 
   <body ng-controller="MenuCtrl">
@@ -113,6 +117,7 @@
                   <md-tab-body>
                     <section ng-controller="AceCtrl">
                       <div class="md-editor" file-id="{{_tab.id}}" ui-ace-options="{ line:{{_tab._line}} }" ui-ace="{mode: _tab.mode, onLoad: aceLoaded, theme: 'netbeans', require: ['ace/ext/language_tools'], advanced: {enableSnippets: true, enableBasicAutocompletion: true, enableLiveAutocompletion: true}}" ng-model="_tab.file"></div>
+                      <result><gutter file-diff-gutter="{{_tab.id}}"></gutter><pre file-diff-pre="{{_tab.id}}"></pre></result>
                     </section>
                   </md-tab-body>
                 </md-tab>
@@ -219,7 +224,13 @@
 
     <script type="text/javascript" src="/libs/ace/src-noconflict/ace.js"></script>
     <script type="text/javascript" src="/libs/ace/src-noconflict/ext-language_tools.js"></script>
-    <script type="text/javascript" src="/libs/angular-ace/ui-ace.js"></script>
+
+    <script type="text/javascript" src="/libs/ace-angular/ui-ace.js"></script>
+
+    <script type="text/javascript" src="/libs/jsdiff/jsdiff.js"></script>
+
+    <!--<script type="text/javascript" src="/libs/ace-diff/ace-diff.js"></script>-->
+    <!--<script type="text/javascript" src="/libs/ace-diff/ui-ace-diff.js"></script>-->
 
     <script type="text/javascript" src="/libs/downloadify/javascript-download.js"></script>
 

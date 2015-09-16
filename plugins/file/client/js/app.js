@@ -8,7 +8,7 @@
 
   window.
     config = {
-      host: 'http://localhost:7744',
+      host: 'http://localhost:4477',
       format: {
         "indent_size": 2,
         "indent_char": " ",
@@ -18,18 +18,18 @@
         "preserve_newlines": true,
         "max_preserve_newlines": 10,
         "jslint_happy": false,
-        "space_after_anon_function": false,
+        "space_after_anon_function": true,
         "brace_style": "collapse",
         "keep_array_indentation": false,
         "keep_function_indentation": false,
         "space_before_conditional": true,
-        "break_chained_methods": false,
+        "break_chained_methods": true,
         "eval_code": false,
         "unescape_strings": false,
         "wrap_line_length": 0,
         "wrap_attributes": "auto",
         "wrap_attributes_indent_size": 2,
-        "end_with_newline": false
+        "end_with_newline": true
       }
 
     /**
@@ -221,7 +221,7 @@
   
       $scope.title = 'File Manager';
       $scope.theme = Storage.get('theme', 'blue');
-      $scope.host = 'http://localhost:7744';
+      $scope.host = 'http://localhost:4477';
       //$scope.url = 'https://siga.fagoc.br';
       $scope.url = 'http://gennesis.io/run';
       $scope.webview = $sce.trustAsResourceUrl($scope.url);
@@ -262,42 +262,42 @@
           {
           id: 4,
           name: 'Gennesis Interface',
-          host: 'http://localhost:7744',
+          host: 'http://localhost:4477',
           path: '/home/william/Documentos/HTML5/gennesis/',
           dir: 'www'
         }
         , {
           id: 1,
           name: 'File Manager Client',
-          host: 'http://localhost:7744',
+          host: 'http://localhost:4477',
           path: '/home/william/Documentos/HTML5/gennesis/plugins/file/',
           dir: 'client'
         }
         , {
           id: 5,
           name: 'Gennesis Electron',
-          host: 'http://localhost:7744',
+          host: 'http://localhost:4477',
           path: '/home/william/Documentos/HTML5/',
           dir: 'gennesis'
         }
         , {
           id: 2,
           name: 'File Manager Server',
-          host: 'http://localhost:7744',
+          host: 'http://localhost:4477',
           path: '/home/william/Documentos/HTML5/gennesis/plugins/file/',
           dir: 'server'
         }
         , {
           id: 3,
           name: 'Synchronize',
-          host: 'http://localhost:7744',
+          host: 'http://localhost:4477',
           path: '/home/william/Documentos/JAVA/',
           dir: 'synchronize'
         }
         , {
           id: 6,
           name: 'Ionic',
-          host: 'http://localhost:7744',
+          host: 'http://localhost:4477',
           path: '/home/william/Documentos/HTML5/',
           dir: 'ionic'
         }
@@ -831,7 +831,7 @@
     });
 
     app.resize = function() {
-    jQuery('[ui-ace]')
+    jQuery('[ui-ace], result')
       .height(jQuery(window)
         .height() - 115);
   };

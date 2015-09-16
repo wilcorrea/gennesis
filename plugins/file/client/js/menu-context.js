@@ -186,7 +186,7 @@
                             });
 
                             $_tree.refresh_node(path);
-                            $_tree.select_node(_id);
+                            //$_tree.select_node(_id);
 
                             $scope.toast('File created "' + name + '"');
                           }
