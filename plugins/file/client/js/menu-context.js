@@ -297,20 +297,35 @@
                   $scope.download(id);
                 }
               }
+              ,'-'
+              , {
+                label: 'Toggle Scroll Sync', click: function(_item) {
+                  if ($target.closest('section').attr('file-scroll') === 'true') {
+                    $target.closest('section').attr('file-scroll', 'false');
+                  } else {
+                    $target.closest('section').attr('file-scroll', 'true');
+                  }
+                }
+              }
+              , {
+                label: 'Toggle Diff View', click: function(_item) {
+                  $target.closest('section').toggleClass('diffing');
+                }
+              }
               , '-'
               , {
                 label: 'Copy', click: function(_item) {
-                  
+                  remote.getCurrentWindow().webContents.copy();
                 }
               }
               , {
                 label: 'Paste', click: function(_item) {
-                  
+                  remote.getCurrentWindow().webContents.paste();
                 }
               }
               , {
                 label: 'Cut', click: function(_item) {
-                  
+                  remote.getCurrentWindow().webContents.cut();
                 }
               }
             ];

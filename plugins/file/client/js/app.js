@@ -4,7 +4,17 @@
 
   window.path = require('path');
 
-  global.__root = (__filename).replace(path.resolve('node_modules','electron-prebuilt','dist','resources','atom.asar','renderer','lib','init.js'), '');
+  global.__isLinux = /^linux/.test(process.platform);
+  global.__isWin = /^win/.test(process.platform);
+  global.__isMac = /^darwin/.test(process.platform);
+
+  if (__isLinux) {
+    global.__root = (__filename).replace(path.resolve('node_modules','electron-prebuilt','dist','resources','atom.asar','renderer','lib','init.js'), '');
+  }
+
+  if (__isMac) {
+    global.__root = (__filename).replace(path.resolve('node_modules','electron-prebuilt','dist','Electron.app','Contents','Resources','atom.asar','renderer','lib','init.js'), '');
+  }
 
   window.
     config = {
@@ -302,6 +312,13 @@
           dir: 'ionic'
         }
         , {
+          id: 1,
+          name: 'ti',
+          host: 'http://arraysoftware.in:7744',
+          path: '/var/www/gennesis.io/public_html/run/',
+          dir: 'ti'
+        }
+        , {
             id: 1
           , name: 'Siga'
           , host: 'http://teste.fagoc.br:7744'
@@ -309,13 +326,6 @@
           , dir: 'siga'
         }
         /*
-        , {
-          id: 1,
-          name: 'ti',
-          host: 'http://arraysoftware.in:7744',
-          path: '/var/www/gennesis.io/public_html/run/',
-          dir: 'ti'
-        }
         , {
             id: 4
           , name: 'Siga-1'

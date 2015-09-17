@@ -117,6 +117,7 @@
                   <md-tab-body>
                     <section ng-controller="AceCtrl">
                       <div class="md-editor" file-id="{{_tab.id}}" ui-ace-options="{ line:{{_tab._line}} }" ui-ace="{mode: _tab.mode, onLoad: aceLoaded, theme: 'netbeans', require: ['ace/ext/language_tools'], advanced: {enableSnippets: true, enableBasicAutocompletion: true, enableLiveAutocompletion: true}}" ng-model="_tab.file"></div>
+                      <diff></diff>
                       <result><gutter file-diff-gutter="{{_tab.id}}"></gutter><pre file-diff-pre="{{_tab.id}}"></pre></result>
                     </section>
                   </md-tab-body>

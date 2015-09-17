@@ -6,133 +6,149 @@
 
     .controller('TreeCtrl', ['$scope', 'FileFactory', function($scope, FileFactory) {
 
-    /**
-     * 
-     * @object tree_core
-     */
-    $scope.tree_core = {
+      /**
+       * 
+       * @object tree_core
+       */
+      $scope.tree_core = {
+  
+        multiple: false,
+  
+        draggable: false,
+  
+        check_callback: function(operation, node, node_parent, data, more) {
+  
+          if (operation === 'move_node') {
+            return false;
+          } else {
+  
+            //console.log(operation);
+  
+            switch (operation) {
+  
+              case 'rename_node':
+  
+                var source = node.id,
+                  target = node_parent.id + '/' + data;
+  
+                FileFactory.mv(source, target, function(response) {
+  
+                  if (response.data.status) {
+  
+                    var $_tree = jQuery('js-tree').jstree(true);
+  
+                    $_tree.delete_node(node);
+  
+                    $_tree.create_node(node_parent.id, {
+                      "id": target,
+                      "text": data,
+                      "icon": 'jstree-custom-file',
+                      "state": {
+                        "opened": false,
+                        "disabled": false,
+                        "selected": false
+                      },
+                      "li_attr": {
+                        "base": target,
+                        "isLeaf": true
+                      },
+                      "children": false
+                    });
+  
+                    $_tree.refresh_node(node_parent.id);
+                  }
+                }, jQuery('[id="' + node.id + '"]').closest('js-tree').attr('file-host'));
+                break;
+            }
+          }
+  
+          return true;
+        }
+      };
 
-      multiple: false,
-
-      draggable: false,
-
-      check_callback: function(operation, node, node_parent, data, more) {
-
-        if (operation === 'move_node') {
-          return false;
-        } else {
-
-          //console.log(operation);
-
-          switch (operation) {
-
-            case 'rename_node':
-
-              var source = node.id,
-                target = node_parent.id + '/' + data;
-
-              FileFactory.mv(source, target, function(response) {
-
-                if (response.data.status) {
-
-                  var $_tree = jQuery('js-tree').jstree(true);
-
-                  $_tree.delete_node(node);
-
-                  $_tree.create_node(node_parent.id, {
-                    "id": target,
-                    "text": data,
-                    "icon": 'jstree-custom-file',
-                    "state": {
-                      "opened": false,
-                      "disabled": false,
-                      "selected": false
-                    },
-                    "li_attr": {
-                      "base": target,
-                      "isLeaf": true
-                    },
-                    "children": false
-                  });
-
-                  $_tree.refresh_node(node_parent.id);
-                }
-              }, jQuery('[id="' + node.id + '"]').closest('js-tree').attr('file-host'));
-              break;
+      /**
+       * 
+       * @param e
+       * @param data
+       */
+      $scope.nodeSelected = function(e, data) {
+  
+        var _node = data.node,
+          _host = jQuery('[id="' + _node.id + '"]').closest('js-tree').attr('file-host'),
+          _project = jQuery('[id="' + _node.id + '"]').closest('js-tree').attr('file-project');
+  
+        if (_node.li_attr.isLeaf) {
+  
+          if (typeof $scope.__index[_node.id] !== 'undefined') {
+  
+            $scope.addTab(_project, _node.id);
+  
+          } else {
+  
+            config.loading('show');
+  
+            FileFactory.get(_node.id, _host).then(function(response) {
+  
+              var _file = response.data;
+              if (typeof _file == 'object') {
+                _file = JSON.stringify(_file, undefined, 2);
+              }
+              var path = require('path'),
+                ext = path.extname(_node.id),
+                _mode = ext.substring(1);
+  
+              config.loading('hide');
+  
+              $scope.addTab(_project, _node.id, _node.text, _file, _mode, _node.data.ft);
+            });
+  
           }
         }
+      };
 
-        return true;
-      }
-    };
-
-    /**
-     * 
-     * @param e
-     * @param data
-     */
-    $scope.nodeSelected = function(e, data) {
-
-      var _node = data.node,
-        _host = jQuery('[id="' + _node.id + '"]').closest('js-tree').attr('file-host'),
-        _project = jQuery('[id="' + _node.id + '"]').closest('js-tree').attr('file-project');
-
-      if (_node.li_attr.isLeaf) {
-
-        if (typeof $scope.__index[_node.id] !== 'undefined') {
-
-          $scope.addTab(_project, _node.id);
-
-        } else {
-
-          config.loading('show');
-
-          FileFactory.get(_node.id, _host).then(function(response) {
-
-            var _file = response.data;
-            if (typeof _file == 'object') {
-              _file = JSON.stringify(_file, undefined, 2);
-            }
-            var path = require('path'),
-              ext = path.extname(_node.id),
-              _mode = ext.substring(1);
-
-            config.loading('hide');
-
-            $scope.addTab(_project, _node.id, _node.text, _file, _mode, _node.data.ft);
-          });
-
-        }
-      }
-    };
-
-  }])
+    }])
 
     .controller('AceCtrl', ['$scope', 'FileFactory', function($scope, FileFactory) {
-  
+
       $scope.aceLoaded = function(_ace) {
-  
+
         app.resize();
-  
+
         $scope._tab.loaded = true;
         $scope._tab.editor = _ace;
-  
+
         var line = +($scope._tab._line);
-  
+
         window.setTimeout(function() {
+
           _ace.gotoLine(line, 0);
+
+
+          jQuery('.md-editor.ace_editor[file-id="' + $scope._tab.id + '"] .ace_scrollbar-v').on('scroll', function() {
+
+            var $editor = $(this);
+
+            if ($editor.closest('section').attr('file-scroll') === 'true') {
+
+              var  $result = $editor.closest('section').find('result')
+                , percentage = $editor[0].scrollTop / ($editor[0].scrollHeight - $editor[0].offsetHeight)
+                , top = percentage * ($result[0].scrollHeight - $result[0].offsetHeight);
+  
+              $result.scrollTop(top);
+            }
+          });
         }, 500);
-  
+
         _ace.setPrintMarginColumn(120);
-  
+
         _ace.getSession().setTabSize(2);
         _ace.getSession().setUseSoftTabs(true);
-  
+
         var _session = _ace.getSession(),
           _renderer = _ace.renderer;
-  
+
         _ace.markers = [];
-  
+
         _ace.commands.addCommand({
           name: 'save',
           bindKey: {
@@ -168,7 +184,7 @@
             }
           }
         });
-  
+
         _ace.commands.addCommand({
           name: 'compare',
           bindKey: {
@@ -185,19 +201,19 @@
             }
           }
         });
-  
+
         // Options
         //_ace.setReadOnly(true);
         //_session.setUndoManager(new ace.UndoManager());
         //_renderer.setShowGutter(false);
-  
+
         _ace.original = $scope._tab.file;
-  
-        
+
+
         var Range = window.ace.require('ace/range').Range;
-  
+
         _ace.markers = [];
-  
+
         _ace.on('input', function() {
   
   
@@ -211,10 +227,12 @@
           }
   
           var $result = jQuery('[file-diff-pre="' + $scope._tab.id + '"]')
-            , $gutter = jQuery('[file-diff-gutter="' + $scope._tab.id + '"]');
+            , $gutter = jQuery('[file-diff-gutter="' + $scope._tab.id + '"]')
+            , $diff = $result.closest('section').find('diff');
             
           $result.html('');
           $gutter.html('');
+          $diff.html('');
 
           _ace.markers.forEach(function(marker) {
             _ace.getSession().removeMarker(marker);
@@ -224,7 +242,8 @@
           //var diff = JsDiff.diffTrimmedLines(_ace.original, $scope._tab.file);
           //var diff = JsDiff.diffWords(_ace.original, $scope._tab.file);
           var fragment = document.createDocumentFragment();
-          var line = 1;
+          var diffMarkers = [];
+          var lines = 1;
   
           for (var i = 0; i < diff.length; i++) {
   
@@ -248,9 +267,9 @@
             d.forEach(function (_line, j) {
   
               var add = true
-                , l = line + j;
+                , line = lines + j;
   
-              if (j === d.length - 1) {
+              if (j === d.length - 1 && _line.length === 0) {
                 add = false;
               }
   
@@ -258,14 +277,18 @@
 
                 var type = diff[i].removed ? 'removed' : (diff[i].added ? 'added' : '');
   
-                if (diff[i].removed || diff[i].added) {
-                  _ace.markers.push(_ace.getSession().addMarker(new Range(l - 1, 0, l - 1, 1), 'ace-diff-line' + ' ' + type, 'fullLine'));
+                if (type) {
+
+                  diffMarkers.push({line: line, type: type});
+
+                  _ace.markers.push(_ace.getSession().addMarker(new Range(line - 1, 0, line - 1, 1), 'ace-diff-line' + ' ' + type, 'fullLine'));
                 }
   
-                $gutter.append('<gutter-item class="' + type + '">' + l + '</gutter-item>');
+                $gutter.append('<gutter-item class="' + type + '">' + line + '</gutter-item>');
+
 
                 var div = document.createElement('div');
-                    //div.appendChild(document.createElement('gutter')).innerHTML = l;
+                    //div.appendChild(document.createElement('gutter')).innerHTML = line;
                     div.appendChild(document.createTextNode(_line));
                 node.appendChild(div);
               }
@@ -273,10 +296,10 @@
   
             fragment.appendChild(node);
   
-            line = line + diff[i].count;
+            lines = lines + diff[i].count;
   
             if (diff[i].removed) {
-              line = line - diff[i].count;
+              lines = lines - diff[i].count;
             }
   
           }
@@ -284,9 +307,16 @@
           //var $result = jQuery('[file-diff="' + $scope._tab.id + '"]');
           //$result.html('');
           $result.append(fragment);
+          
+          diffMarkers.forEach(function(marker) {
+            var top = ((marker.line * 100) / lines);
+            $diff.append('<diff-item class="' + marker.type + '" style="top: calc(' + top + '% - 5px);" file-line="' + marker.line + '"></diff-item>').click(function(evt) {
+              _ace.scrollToLine(+($(evt.target).attr('file-line')), true, true);
+            });
+          });
 
         });
-  
+
         _ace.on("change", function(e) {
   
           var typed = 'programatically';
@@ -306,13 +336,13 @@
   
           }
         });
-  
+
         $scope.modeChanged = function(mode) {
   
           _ace.getSession().setMode("ace/mode/" + mode.toLowerCase());
         };
       };
-  
+
     }]);
 
 }());

@@ -7,7 +7,7 @@
     this.storage = require('node-persist');
 
     this.storage.initSync({
-      dir: path.resolve(__root,'plugins','file','client','storage'),
+      dir: path.resolve(__root,'plugins','file','client','storage','data'),
     });
 
     /**
