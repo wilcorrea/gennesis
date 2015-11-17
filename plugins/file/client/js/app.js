@@ -269,85 +269,13 @@
       });
   
       $scope.__projects = [
-          {
-          id: 4,
-          name: 'Gennesis Interface',
-          host: 'http://localhost:4477',
-          path: '/home/william/Documentos/HTML5/gennesis/',
-          dir: 'www'
-        }
-        , {
-          id: 1,
-          name: 'File Manager Client',
-          host: 'http://localhost:4477',
-          path: '/home/william/Documentos/HTML5/gennesis/plugins/file/',
-          dir: 'client'
-        }
-        , {
-          id: 5,
-          name: 'Gennesis Electron',
-          host: 'http://localhost:4477',
-          path: '/home/william/Documentos/HTML5/',
-          dir: 'gennesis'
-        }
-        , {
-          id: 2,
-          name: 'File Manager Server',
-          host: 'http://localhost:4477',
-          path: '/home/william/Documentos/HTML5/gennesis/plugins/file/',
-          dir: 'server'
-        }
-        , {
-          id: 3,
-          name: 'Synchronize',
-          host: 'http://localhost:4477',
-          path: '/home/william/Documentos/JAVA/',
-          dir: 'synchronize'
-        }
-        , {
-          id: 6,
-          name: 'Ionic',
-          host: 'http://localhost:4477',
-          path: '/home/william/Documentos/HTML5/',
-          dir: 'ionic'
-        }
-        , {
-          id: 1,
-          name: 'ti',
-          host: 'http://arraysoftware.in:7744',
-          path: '/var/www/gennesis.io/public_html/run/',
-          dir: 'ti'
-        }
-        , {
-            id: 1
-          , name: 'Siga'
-          , host: 'http://teste.fagoc.br:7744'
-          , path: '/srv/www/htdocs/'
-          , dir: 'siga'
-        }
-        /*
-        , {
+        {
             id: 4
-          , name: 'Siga-1'
+          , name: 'Fagoc'
           , host: 'http://teste.fagoc.br:7744'
-          , path: '/srv/www/htdocs/'
-          , dir: 'siga-1'
+          , path: '/srv/www/'
+          , dir: 'htdocs'
         }
-        , {
-            id: 2
-          , name: 'Manager'
-          , host: 'http://teste.fagoc.br:7744'
-          , path: '/srv/www/htdocs/'
-          , dir: 'manager'
-        }
-        ,{
-            id: 3
-          , name: 'Suporte'
-          , host: 'http://teste.fagoc.br:7744'
-          , path: '/srv/www/htdocs/'
-          , dir: 'suporte'
-        }
-        */
       ];
   
       var open = Storage.get('tab.open');
